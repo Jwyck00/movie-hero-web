@@ -1,0 +1,12 @@
+diff --git a/lib/Flag.js b/lib/Flag.js
+index b97495056b3a42e6f57ebc156fb54ae74d4947f9..d7a21a2ad8ab5ab0084c377b780c5a0bb79fa783 100644
+--- a/lib/Flag.js
++++ b/lib/Flag.js
+@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
+         justifyContent: 'center',
+         alignItems: 'center',
+         width: 30,
+-        marginRight: 10,
+     },
+     emojiFlag: {
+         alignItems: 'center',

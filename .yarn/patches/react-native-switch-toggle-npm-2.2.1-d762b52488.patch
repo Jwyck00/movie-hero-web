@@ -1,0 +1,13 @@
+diff --git a/lib/index.js b/lib/index.js
+index ee159eb4e852e1e63ec231580795174b1a3587ee..6332c8953b918dcdc0be2a14fc688c16a95abdb1 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -31,7 +31,7 @@ function SwitchToggle(props) {
+     var endPos = props.containerStyle && props.circleStyle
+         ? props.containerStyle.width -
+             (props.circleStyle.width +
+-                (props.containerStyle.padding || 0) * 2)
++                (props.containerStyle.padding || 0) * 2 + (props.containerStyle.borderWidth || 0) * 2)
+         : 0;
+     var circlePosXEnd = props.RTL ? -endPos : endPos;
+     var circlePosXStart = useState(getStart())[0];

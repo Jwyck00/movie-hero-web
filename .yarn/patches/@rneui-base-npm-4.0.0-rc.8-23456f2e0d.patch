@@ -1,0 +1,33 @@
+diff --git a/dist/Tab/Tab.js b/dist/Tab/Tab.js
+index 8217c38658b2203735dfac149be80017c812103b..b58e581aed2643bc36feaddb532ea2b4949499a8 100644
+--- a/dist/Tab/Tab.js
++++ b/dist/Tab/Tab.js
+@@ -86,6 +86,7 @@ export const TabBase = (_a) => {
+             setTabContainerWidth(layout.width);
+         } }), React.createElement(scrollable ? ScrollView : React.Fragment, Object.assign(Object.assign({}, (scrollable && {
+         horizontal: true,
++        scrollEventThrottle: 0,
+         ref: scrollViewRef,
+         onScroll: onScrollHandler,
+         showsHorizontalScrollIndicator: false,
+@@ -119,7 +120,7 @@ export const TabBase = (_a) => {
+                         backgroundColor: (_c = theme === null || theme === void 0 ? void 0 : theme.colors) === null || _c === void 0 ? void 0 : _c.secondary,
+                         transform: [
+                             {
+-                                translateX: indicatorTransitionInterpolate,
++                                translateX: value * (WIDTH ?? 0),
+                             },
+                         ],
+                         width: WIDTH,
+@@ -137,6 +138,11 @@ const styles = StyleSheet.create({
+         position: 'absolute',
+         height: 2,
+         bottom: 0,
++        transform: [
++            {
++                translateX: 0,  
++            }
++        ]
+     },
+ });
+ TabBase.displayName = 'Tab';

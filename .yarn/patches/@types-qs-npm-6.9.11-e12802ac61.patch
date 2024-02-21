@@ -1,0 +1,13 @@
+diff --git a/index.d.ts b/index.d.ts
+index b3716e0a80f939ade335ac9dda9e45c2c38b1314..d3ab8f4c67359e63eb123478facc311f4cd7e8e5 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -11,7 +11,7 @@ declare namespace QueryString {
+         skipNulls?: boolean | undefined;
+         encode?: boolean | undefined;
+         encoder?:
+-            | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value") => string)
++            | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value", format: string, prefix?: string) => string)
+             | undefined;
+         filter?: Array<string | number> | ((prefix: string, value: any) => any) | undefined;
+         arrayFormat?: "indices" | "brackets" | "repeat" | "comma" | undefined;

@@ -1,0 +1,24 @@
+diff --git a/lib/stringify.js b/lib/stringify.js
+index 997d3eec60908e33b67d60acd4afb8f4cd8b24b5..29f149bce0309ed26185c4edeedc78bfaa9f38b7 100644
+--- a/lib/stringify.js
++++ b/lib/stringify.js
+@@ -111,7 +111,7 @@ var stringify = function stringify(
+ 
+     if (obj === null) {
+         if (strictNullHandling) {
+-            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset, 'key', format) : prefix;
++            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset, 'key', format, undefined) : prefix;
+         }
+ 
+         obj = '';
+@@ -119,8 +119,8 @@ var stringify = function stringify(
+ 
+     if (isNonNullishPrimitive(obj) || utils.isBuffer(obj)) {
+         if (encoder) {
+-            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset, 'key', format);
+-            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder, charset, 'value', format))];
++            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset, 'key', format, undefined);
++            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder, charset, 'value', format, prefix))];
+         }
+         return [formatter(prefix) + '=' + formatter(String(obj))];
+     }
