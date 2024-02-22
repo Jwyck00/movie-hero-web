@@ -1,4 +1,13 @@
+import { Icon } from "@/components/Icons";
+import { Logo } from "@/components/Logo";
+import { useToastSuccess } from "@/components/Toast";
+import { useAuthContext } from "@/features/auth/AuthProvider";
+import { useDashboardLayoutContext } from "@/features/dashboard/DashboardLayout";
+import { DashboardLoginModal } from "@/features/dashboard/DashboardLoginModal";
+import { LinkDashboard } from "@/features/dashboard/LinkDashboard";
+import { DASHBOARD_PATH } from "@/features/dashboard/constants";
 import {
+  Avatar,
   Box,
   BoxProps,
   Drawer,
@@ -10,17 +19,21 @@ import {
   Flex,
   IconButton,
   IconButtonProps,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+  MenuProps,
+  Spinner,
   Stack,
   StackProps,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { usePathname } from "next/navigation";
-import { LuMenu } from "react-icons/lu";
-
-import { Logo } from "@/components/Logo";
-import { useDashboardLayoutContext } from "@/features/dashboard/DashboardLayout";
-import { LinkDashboard } from "@/features/dashboard/LinkDashboard";
-import { DASHBOARD_PATH } from "@/features/dashboard/constants";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { LuLogOut, LuMenu, LuUser } from "react-icons/lu";
 
 export const DASHBOARD_NAV_BAR_HEIGHT = `calc(4rem + env(safe-area-inset-top))`;
 
@@ -34,6 +47,65 @@ const DashboardNavBarMainMenu = ({ ...rest }: StackProps) => {
         {"Actors"}
       </DashboardNavBarMainMenuItem>
     </Stack>
+  );
+};
+
+const DashboardNavBarAccountMenu = ({
+  ...rest
+}: Omit<MenuProps, "children">) => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const toastSuccess = useToastSuccess();
+  const { isLoggedIn, logout } = useAuthContext();
+
+  const handleLogout = () => {
+    logout();
+    toastSuccess({
+      title: "Logged out Successfully!",
+    });
+  };
+
+  return (
+    <Box color="gray.800" _dark={{ color: "white" }}>
+      <Menu placement="bottom-end" {...rest}>
+        <MenuButton borderRadius="full" _focusVisible={{ shadow: "outline" }}>
+          <Avatar size="sm" icon={<></>} name={"account"} />
+        </MenuButton>
+        <MenuList maxW="12rem" overflow="hidden">
+          <MenuGroup title={"Account"} noOfLines={1}>
+            {isLoggedIn ? (
+              <MenuItem
+                icon={<Icon icon={LuUser} fontSize="lg" color="gray.400" />}
+              >
+                {"Admin"}
+              </MenuItem>
+            ) : (
+              <MenuItem
+                onClick={() => setIsLoginModalOpen(true)}
+                icon={<Icon icon={LuUser} fontSize="lg" color="gray.400" />}
+              >
+                {"Login"}
+              </MenuItem>
+            )}
+          </MenuGroup>
+
+          {isLoggedIn && (
+            <>
+              <MenuDivider />
+              <MenuItem
+                icon={<Icon icon={LuLogOut} fontSize="lg" color="gray.400" />}
+                onClick={handleLogout}
+              >
+                {"Logout"}
+              </MenuItem>
+            </>
+          )}
+        </MenuList>
+      </Menu>
+      <DashboardLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
+    </Box>
   );
 };
 
@@ -78,6 +150,7 @@ export const DashboardNavBar = (props: BoxProps) => {
           ms="4"
           display={{ base: "none", md: "flex" }}
         />
+        <DashboardNavBarAccountMenu />
       </Flex>
       <Box h={DASHBOARD_NAV_BAR_HEIGHT} />
       {showDrawer && <DashboardNavBarDrawer />}
