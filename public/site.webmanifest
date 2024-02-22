@@ -1,0 +1,9 @@
+{
+  "name": "Movie Hero",
+  "short_name": "Movie Hero",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/",
+  "prefer_related_applications": true
+}
