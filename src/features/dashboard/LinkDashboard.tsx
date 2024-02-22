@@ -3,9 +3,9 @@
 import { forwardRef } from "@chakra-ui/react";
 import Link, { LinkProps } from "next/link";
 
-import { ADMIN_PATH } from "@/features/admin/constants";
+import { DASHBOARD_PATH } from "@/features/dashboard/constants";
 
-export const LinkAdmin = forwardRef(
+export const LinkDashboard = forwardRef(
   (
     {
       href: _href,
@@ -14,7 +14,7 @@ export const LinkAdmin = forwardRef(
       Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>,
     ref
   ) => {
-    const href = `${ADMIN_PATH}${_href}`;
+    const href = `${DASHBOARD_PATH}${_href}`;
 
     return <Link ref={ref} href={href} {...rest} />;
   }

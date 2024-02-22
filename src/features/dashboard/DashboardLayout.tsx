@@ -3,33 +3,33 @@
 import React, { FC, useContext, useEffect, useMemo, useState } from "react";
 import { Flex, UseDisclosureProps, useDisclosure } from "@chakra-ui/react";
 import { Viewport } from "@/components/Viewport";
-import { AdminNavBar } from "@/features/admin/AdminNavBar";
+import { DashboardNavBar } from "@/features/dashboard/DashboardNavBar";
 
-export type AdminLayoutContextNavDisplayed = boolean | "desktop";
+export type DashboardLayoutContextNavDisplayed = boolean | "desktop";
 
-type AdminLayoutContextValue = {
-  navDisplayed: AdminLayoutContextNavDisplayed;
+type DashboardLayoutContextValue = {
+  navDisplayed: DashboardLayoutContextNavDisplayed;
   setNavDisplayed: React.Dispatch<
-    React.SetStateAction<AdminLayoutContextNavDisplayed>
+    React.SetStateAction<DashboardLayoutContextNavDisplayed>
   >;
   navDrawer: UseDisclosureProps;
 };
 
-export const AdminLayoutContext =
-  React.createContext<AdminLayoutContextValue | null>(null);
+export const DashboardLayoutContext =
+  React.createContext<DashboardLayoutContextValue | null>(null);
 
-export const useAdminLayoutContext = () => {
-  const ctx = useContext(AdminLayoutContext);
+export const useDashboardLayoutContext = () => {
+  const ctx = useContext(DashboardLayoutContext);
   if (ctx === null) {
-    throw new Error("Missing parent <AdminLayout> component");
+    throw new Error("Missing parent <DashboardLayout> component");
   }
   return ctx;
 };
 
-export const useAdminLayoutHideNav = (
-  displayed: AdminLayoutContextNavDisplayed = true
+export const useDashboardLayoutHideNav = (
+  displayed: DashboardLayoutContextNavDisplayed = true
 ) => {
-  const { setNavDisplayed } = useAdminLayoutContext();
+  const { setNavDisplayed } = useDashboardLayoutContext();
 
   useEffect(() => {
     setNavDisplayed(displayed);
@@ -37,11 +37,11 @@ export const useAdminLayoutHideNav = (
   }, [setNavDisplayed, displayed]);
 };
 
-export const AdminLayout: FC<React.PropsWithChildren<unknown>> = ({
+export const DashboardLayout: FC<React.PropsWithChildren<unknown>> = ({
   children,
 }) => {
   const [navDisplayed, setNavDisplayed] =
-    useState<AdminLayoutContextNavDisplayed>(true);
+    useState<DashboardLayoutContextNavDisplayed>(true);
   const navDrawer = useDisclosure();
 
   const providerValue = useMemo(
@@ -54,14 +54,14 @@ export const AdminLayout: FC<React.PropsWithChildren<unknown>> = ({
   );
 
   return (
-    <AdminLayoutContext.Provider value={providerValue}>
+    <DashboardLayoutContext.Provider value={providerValue}>
       <Viewport
-        data-testid="admin-layout"
+        data-testid="Dashboard-layout"
         bg="gray.50"
         _dark={{ bg: "gray.900" }}
       >
         {!!navDisplayed && (
-          <AdminNavBar
+          <DashboardNavBar
             display={
               navDisplayed === "desktop"
                 ? { base: "none", md: "block" }
@@ -73,6 +73,6 @@ export const AdminLayout: FC<React.PropsWithChildren<unknown>> = ({
           {children}
         </Flex>
       </Viewport>
-    </AdminLayoutContext.Provider>
+    </DashboardLayoutContext.Provider>
   );
 };

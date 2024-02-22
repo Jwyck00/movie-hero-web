@@ -6,6 +6,7 @@ import { Viewport } from "@/components/Viewport";
 import theme from "@/theme";
 
 export const Document = ({ children }: { children: ReactNode }) => {
+
   return (
     <html lang="en">
       <head>

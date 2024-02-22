@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { ADMIN_PATH } from "@/features/admin/constants";
+import { DASHBOARD_PATH } from "@/features/dashboard/constants";
 
 export default function Page() {
-  redirect(ADMIN_PATH || "/");
+  redirect(DASHBOARD_PATH || "/");
 }
