@@ -12,6 +12,7 @@ import type { AxiosError } from "axios";
 
 export interface EditMoviesRequest {
   name: string;
+  actorIds: string[];
 }
 
 const updateMovie = async (

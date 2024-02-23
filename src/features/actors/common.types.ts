@@ -1,4 +1,4 @@
-export interface ActorsResponse {
+export interface ActorResponse {
   id: string;
   name: string;
 }

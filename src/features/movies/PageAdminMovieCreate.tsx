@@ -14,9 +14,11 @@ import {
 } from "@/features/dashboard/DashboardLayoutPage";
 import { MovieForm, MovieFormFields } from "@/features/movies/MovieForm";
 import { useCreateMovie } from "@/features/movies/useCreateMovie";
+import { useAuthContext } from "@/features/auth/AuthProvider";
 
 export default function PageAdminMovieCreate() {
   const router = useRouter();
+  const { isLoggedIn } = useAuthContext();
 
   const toastError = useToastError();
   const toastSuccess = useToastSuccess();
@@ -54,7 +56,7 @@ export default function PageAdminMovieCreate() {
                 type="submit"
                 variant="@primary"
                 isLoading={createMovie.isPending || createMovie.isSuccess}
-                isDisabled={!form.isValid && form.isSubmitted}
+                isDisabled={(!form.isValid && form.isSubmitted) || !isLoggedIn}
               >
                 {"Save"}
               </Button>

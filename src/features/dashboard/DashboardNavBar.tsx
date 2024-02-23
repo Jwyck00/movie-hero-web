@@ -43,9 +43,6 @@ const DashboardNavBarMainMenu = ({ ...rest }: StackProps) => {
       <DashboardNavBarMainMenuItem href="/movies">
         {"Movies"}
       </DashboardNavBarMainMenuItem>
-      <DashboardNavBarMainMenuItem href="/actors">
-        {"Actors"}
-      </DashboardNavBarMainMenuItem>
     </Stack>
   );
 };

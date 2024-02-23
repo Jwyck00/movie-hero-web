@@ -1,9 +1,9 @@
-import type { ActorsResponse } from "@/features/actors/common.types";
+import type { ActorResponse } from "@/features/actors/common.types";
 
 export interface MovieResponse {
   id: string;
   name: string;
-  actors: ActorsResponse[];
+  actors: ActorResponse[];
   ratingsAverage: number;
   ratingsCount: number;
 }

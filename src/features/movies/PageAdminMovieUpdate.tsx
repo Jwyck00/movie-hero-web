@@ -14,10 +14,12 @@ import {
 import { useGetMovie } from "@/features/movies/useGetMovie";
 import { MovieForm, MovieFormFields } from "@/features/movies/MovieForm";
 import { useUpdateMovie } from "@/features/movies/useUpdateMovie";
+import { useAuthContext } from "@/features/auth/AuthProvider";
 
 export default function PageAdminMovieUpdate() {
   const params = useParams();
   const router = useRouter();
+  const { isLoggedIn } = useAuthContext();
 
   const movie = useGetMovie(params?.id?.toString() ?? "", {
     refetchOnReconnect: false,
@@ -48,6 +50,7 @@ export default function PageAdminMovieUpdate() {
     ready: isReady,
     initialValues: {
       name: movie.data?.name ?? undefined,
+      actorIds: movie.data?.actors.map((x) => x.id) ?? undefined,
     },
     onValidSubmit: (values) => {
       if (!movie.data?.id) return;
@@ -70,7 +73,7 @@ export default function PageAdminMovieUpdate() {
               <Button
                 type="submit"
                 variant="@primary"
-                isDisabled={!form.isValid && form.isSubmitted}
+                isDisabled={(!form.isValid && form.isSubmitted) || !isLoggedIn}
                 isLoading={movieUpdate.isPending || movieUpdate.isSuccess}
               >
                 {"Save"}

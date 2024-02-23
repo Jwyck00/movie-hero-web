@@ -1,5 +1,6 @@
 import { ActionsButton } from "@/components/ActionsButton";
 import { Icon } from "@/components/Icons";
+import { useAuthContext } from "@/features/auth/AuthProvider";
 import { LinkDashboard } from "@/features/dashboard/LinkDashboard";
 import type { MovieResponse } from "@/features/movies/common.types";
 import {
@@ -20,6 +21,8 @@ export const DashboardMovieActions = ({
   movie,
   ...rest
 }: DashboardMovieActionProps) => {
+  const { isLoggedIn } = useAuthContext();
+
   return (
     <Menu placement="left-start" {...rest}>
       <MenuButton as={ActionsButton} />
@@ -28,6 +31,7 @@ export const DashboardMovieActions = ({
           <MenuItem
             as={LinkDashboard}
             href={`/movies/${movie.id}`}
+            disabled={!isLoggedIn}
             icon={<Icon icon={LuPenLine} fontSize="lg" color="gray.400" />}
           >
             {"Edit"}
