@@ -98,6 +98,13 @@ export default function PageDashboardMovies() {
                       </LinkOverlay>
                     </DataListText>
                   </DataListCell>
+                  <DataListCell w="auto">
+                    <Text fontSize="xs" color="text-dimmed">
+                      {`Rate: ${
+                        Math.round(movie.ratingsAverage * 10) / 10
+                      }, Count: ${movie.ratingsCount}`}
+                    </Text>
+                  </DataListCell>
                   <DataListCell
                     flexDirection="row"
                     w="auto"

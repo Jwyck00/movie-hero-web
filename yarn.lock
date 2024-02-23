@@ -1685,6 +1685,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formiz/validations@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@formiz/validations@npm:2.0.1"
+  checksum: 10/a083bf36f5d0b59094d9c975a58d66346da2655119e31c705832d04e96c6e05f218e80101015f217b4494e681d81a9a3c6c25e515870c6e160a81d85d0634b4d
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -4736,6 +4743,7 @@ __metadata:
     "@emotion/styled": "npm:^11.11.0"
     "@fontsource/inter": "npm:^5.0.16"
     "@formiz/core": "npm:^2.2.3"
+    "@formiz/validations": "npm:^2.0.1"
     "@tanstack/react-query": "npm:^5.22.2"
     "@types/lodash": "npm:^4"
     "@types/node": "npm:^20"

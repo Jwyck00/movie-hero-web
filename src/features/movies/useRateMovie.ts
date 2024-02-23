@@ -10,35 +10,39 @@ import {
 } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
-export interface CreateMoviesRequest {
-  name: string;
+export interface RateMoviesRequest {
+  rate: number;
 }
 
-const createMovie = async (
-  payload: CreateMoviesRequest
+const rateMovie = async (
+  movieId: string,
+  payload: RateMoviesRequest
 ): Promise<MovieResponse> => {
-  const r = await apiService.post(`/movies`, payload);
+  const r = await apiService.post(`/movies/${movieId}/rate`, payload);
   return r.data;
 };
 
-export const useCreateMovie = (
+export const useRateMovie = (
   opt?: Partial<
     UseMutationOptions<
       MovieResponse,
       AxiosError<ApiErrorResponse>,
-      CreateMoviesRequest
+      {
+        movieId: string;
+        payload: RateMoviesRequest;
+      }
     >
   >
 ) => {
   const queryClient = useQueryClient();
 
   const mutate = useMutation({
-    mutationFn: (payload) => createMovie(payload),
+    mutationFn: ({ movieId, payload }) => rateMovie(movieId, payload),
     ...opt,
     onSettled(data, error, variables, context) {
       queryClient.invalidateQueries({
         queryKey: ["movies"],
-        exact: false,
+        exact: false
       });
       opt?.onSettled?.(data, error, variables, context);
     },

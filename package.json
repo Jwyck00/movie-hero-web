@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/inter": "^5.0.16",
     "@formiz/core": "^2.2.3",
+    "@formiz/validations": "^2.0.1",
     "@tanstack/react-query": "^5.22.2",
     "axios": "^1.6.7",
     "chakra-react-select": "^4.7.6",
