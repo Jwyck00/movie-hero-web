@@ -1,7 +1,7 @@
 import type { MovieResponse } from "@/features/movies/common.types";
 import { apiService } from "@/lib/api/axios";
 import type { IPaginatedResponse } from "@/lib/api/common.types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
 export interface MoviesRequestParams {
@@ -20,23 +20,27 @@ const getMovies = async (
 };
 
 export const useGetMovies = (params: MoviesRequestParams) => {
-  const query = useInfiniteQuery<IPaginatedResponse<MovieResponse>, AxiosError>(
-    {
-      queryKey: ["movies", params],
-      queryFn: () => getMovies(params),
-      getNextPageParam: (param) => {
-        if (!param.hasNextPage) return undefined;
+  const query = useInfiniteQuery<
+    IPaginatedResponse<MovieResponse>,
+    AxiosError,
+    InfiniteData<IPaginatedResponse<MovieResponse>>,
+    ["movies", MoviesRequestParams],
+    MoviesRequestParams
+  >({
+    queryKey: ["movies", params],
+    queryFn: ({ pageParam }) => getMovies({ ...params, ...pageParam }),
+    getNextPageParam: (param) => {
+      if (!param.hasNextPage) return undefined;
 
-        return {
-          ...params,
-          pageNumber: param.pageNumber + 1,
-        } as MoviesRequestParams;
-      },
-      initialPageParam: {
+      return {
         ...params,
-      },
-    }
-  );
+        pageNumber: param.pageNumber + 1,
+      };
+    },
+    initialPageParam: {
+      ...params,
+    },
+  });
 
   return query;
 };

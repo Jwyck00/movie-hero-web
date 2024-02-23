@@ -6,3 +6,9 @@ export interface IPaginatedResponse<TData> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
+
+export interface ApiErrorResponse {
+  title: string;
+  status: number;
+  detail: string;
+}

@@ -5,7 +5,15 @@ import {
   DashboardLayoutPageContent,
 } from "@/features/dashboard/DashboardLayoutPage";
 import { LinkDashboard } from "@/features/dashboard/LinkDashboard";
-import { Flex, HStack, Heading, Stack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Flex,
+  HStack,
+  Heading,
+  Stack,
+  Tag,
+  Tooltip,
+} from "@chakra-ui/react";
 import { useQueryState } from "nuqs";
 import { LuPlus } from "react-icons/lu";
 
@@ -89,6 +97,17 @@ export default function PageDashboardMovies() {
                         {movie.name}
                       </LinkOverlay>
                     </DataListText>
+                  </DataListCell>
+                  <DataListCell
+                    flexDirection="row"
+                    w="auto"
+                    display={{ base: "none", sm: "flex" }}
+                  >
+                    {movie.actors.map((actor) => (
+                      <Tooltip key={actor.id} label={actor.name}>
+                        <Avatar size="sm" name={actor.name ?? ""} />
+                      </Tooltip>
+                    ))}
                   </DataListCell>
                   <DataListCell w="auto">
                     <DashboardMovieActions movie={movie} />

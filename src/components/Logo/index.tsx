@@ -1,7 +1,11 @@
-import { Heading, useTheme } from "@chakra-ui/react";
+import { Heading, useTheme, type HeadingProps } from "@chakra-ui/react";
 
-export const Logo = () => {
+export const Logo = (props: HeadingProps) => {
   const theme = useTheme();
 
-  return <Heading color="whiteAlpha">Movie Hero</Heading>;
+  return (
+    <Heading color="whiteAlpha" {...props}>
+      Movie Hero
+    </Heading>
+  );
 };
